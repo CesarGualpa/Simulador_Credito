@@ -1,0 +1,4 @@
+Prompt 1:Actua como un programador experto en HTML, CSS y JavaScript. Tengo un formulario de simulador de credito. Quiero que agregues validaciones completas al presionar el boton Calcular Credito. Los errores deben mostrarse debajo de cada campo.
+Prompt 2:Agrega validaciones para campos obligatorios, que solo acepten numeros, que no permitan valores negativos y que tengan limites minimos y maximos razonables para ingresos, egresos, monto, plazo y tasa de interes.
+Prompt 3:Implementa las validaciones sin cambiar los ids de mi formulario. Quiero que si un campo tiene error, tambien se pinte visualmente el input. Si hay errores, no debe realizarse el calculo.
+Prompt 4:Agrega una validacion adicional para que los egresos no sean mayores que los ingresos. Si el formulario es valido, debe continuar con el calculo normalmente. Si se presiona reiniciar, tambien deben limpiarse los mensajes de error.
