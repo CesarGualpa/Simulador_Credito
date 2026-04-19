@@ -1,4 +1,3 @@
-//AQUI EL JAVASCRIPT PARA MANIPULAR EL HTML
 function calcular(){
     // 1. Leer ingresos
     let ingresos = parseFloat(document.getElementById("txtIngresos").value);
