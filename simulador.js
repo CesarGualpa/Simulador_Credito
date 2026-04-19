@@ -24,10 +24,26 @@ function calcular(){
     let aprobado = aprobarCredito(capacidad, cuotaMensual);
 
     if(aprobado == true){
-    document.getElementById("spnEstadoCredito").textContent = "CREDITO APROBADO";
+        document.getElementById("spnEstadoCredito").textContent = "CREDITO APROBADO";
     }else{
-    document.getElementById("spnEstadoCredito").textContent = "CREDITO RECHAZADO";
+        document.getElementById("spnEstadoCredito").textContent = "CREDITO RECHAZADO";
     }
 }
 
+function reiniciar(){
+    document.getElementById("txtIngresos").value = "";
+    document.getElementById("txtEgresos").value = "";
+    document.getElementById("txtMonto").value = "";
+    document.getElementById("txtPlazo").value = "";
+    document.getElementById("txtTasaInteres").value = "";
+
+    document.getElementById("spnDisponible").textContent = "";
+    document.getElementById("spnCapacidadPago").textContent = "";
+    document.getElementById("spnInteresPagar").textContent = "";
+    document.getElementById("spnTotalPrestamo").textContent = "";
+    document.getElementById("spnCuotaMensual").textContent = "";
+    document.getElementById("spnEstadoCredito").textContent = "ANALIZANDO...";
+}
+
 document.getElementById("btnCalcularCredito").onclick = calcular;
+document.getElementById("btnReiniciar").onclick = reiniciar;
