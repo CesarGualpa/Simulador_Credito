@@ -1,0 +1,2 @@
+prompt 1: Quiero que tengas el rol de un diseñador grafico y me crees una interfaz minimalista y colocando la entrada para un logo y colores que combinen.
+prompt 2: Agrega colores mas vividos porque estan muy opacos.
