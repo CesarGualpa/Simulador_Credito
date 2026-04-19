@@ -149,3 +149,16 @@ button {
 #btnReiniciar:hover {
     background: linear-gradient(135deg, #ea580c, #c2410c);
 }
+
+.error {
+    display: block;
+    color: #dc2626;
+    font-size: 13px;
+    margin-top: 4px;
+    min-height: 16px;
+}
+
+.input-error {
+    border: 2px solid #dc2626;
+    background-color: #fef2f2;
+}
