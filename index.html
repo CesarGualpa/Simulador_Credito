@@ -19,39 +19,44 @@
             </div>
         </div>
 
-        <div class="section">
-            <h2>Datos financieros</h2>
+    <div class="section">
+        <h2>Datos financieros</h2>
 
-            <label for="txtIngresos">Ingresos</label>
-            <input type="text" id="txtIngresos" placeholder="Ingrese sus ingresos">
+        <label for="txtIngresos">Ingresos</label>
+        <input type="text" id="txtIngresos" placeholder="Ingrese sus ingresos">
+        <small id="errorIngresos" class="error"></small>
 
-            <label for="txtEgresos">Egresos</label>
-            <input type="text" id="txtEgresos" placeholder="Ingrese sus egresos">
+        <label for="txtEgresos">Egresos</label>
+        <input type="text" id="txtEgresos" placeholder="Ingrese sus egresos">
+        <small id="errorEgresos" class="error"></small>
 
-            <div class="result-box">
-                <p>Disponible: <span id="spnDisponible"></span></p>
-                <p>Capacidad de pago mensual: <span id="spnCapacidadPago"></span></p>
-            </div>
+        <div class="result-box">
+        <p>Disponible: <span id="spnDisponible"></span></p>
+        <p>Capacidad de pago mensual: <span id="spnCapacidadPago"></span></p>
         </div>
+    </div>
 
         <div class="section">
             <h2>Solicitud de crédito</h2>
 
             <label for="txtMonto">Monto</label>
             <input type="text" id="txtMonto" placeholder="Ingrese el monto solicitado">
+            <small id="errorMonto" class="error"></small>
 
             <label for="txtPlazo">Plazo en años</label>
             <input type="text" id="txtPlazo" placeholder="Ingrese el plazo">
+            <small id="errorPlazo" class="error"></small>
 
             <label for="txtTasaInteres">Tasa de interés</label>
             <input type="text" id="txtTasaInteres" placeholder="Ingrese la tasa anual">
+            <small id="errorTasa" class="error"></small>
 
             <div class="result-box">
-                <p>Interés a pagar: <span id="spnInteresPagar"></span></p>
-                <p>Total préstamo: <span id="spnTotalPrestamo"></span></p>
-                <p>Cuota mensual: <span id="spnCuotaMensual"></span></p>
-                <p>Estado de crédito: <span id="spnEstadoCredito">ANALIZANDO...</span></p>
-            </div>
+            <p>Interés a pagar: <span id="spnInteresPagar"></span></p>
+            <p>Total préstamo: <span id="spnTotalPrestamo"></span></p>
+            <p>Cuota mensual: <span id="spnCuotaMensual"></span></p>
+            <p>Estado de crédito: <span id="spnEstadoCredito">ANALIZANDO...</span></p>
+</div>
         </div>
 
         <div class="buttons">
