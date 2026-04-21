@@ -1,12 +1,16 @@
 function limpiarErrores(){
     document.getElementById("errorIngresos").textContent = "";
-    document.getElementById("errorEgresos").textContent = "";
+    document.getElementById("errorArriendo").textContent = "";
+    document.getElementById("errorAlimentacion").textContent = "";
+    document.getElementById("errorVarios").textContent = "";
     document.getElementById("errorMonto").textContent = "";
     document.getElementById("errorPlazo").textContent = "";
     document.getElementById("errorTasa").textContent = "";
 
     document.getElementById("txtIngresos").classList.remove("input-error");
-    document.getElementById("txtEgresos").classList.remove("input-error");
+    document.getElementById("txtArriendo").classList.remove("input-error");
+    document.getElementById("txtAlimentacion").classList.remove("input-error");
+    document.getElementById("txtVarios").classList.remove("input-error");
     document.getElementById("txtMonto").classList.remove("input-error");
     document.getElementById("txtPlazo").classList.remove("input-error");
     document.getElementById("txtTasaInteres").classList.remove("input-error");
@@ -17,42 +21,49 @@ function mostrarError(idInput, idError, mensaje){
     document.getElementById(idInput).classList.add("input-error");
 }
 
+function validarCampoNumero(valor, idInput, idError, nombreCampo){
+    let esValido = true;
+
+    if(valor == ""){
+        mostrarError(idInput, idError, "El campo " + nombreCampo + " es obligatorio");
+        esValido = false;
+    }else if(isNaN(valor)){
+        mostrarError(idInput, idError, nombreCampo + " debe ser numérico");
+        esValido = false;
+    }else if(parseFloat(valor) < 0){
+        mostrarError(idInput, idError, nombreCampo + " no puede ser negativo");
+        esValido = false;
+    }else if(parseFloat(valor) > 100000){
+        mostrarError(idInput, idError, nombreCampo + " no puede ser mayor a 100000");
+        esValido = false;
+    }
+
+    return esValido;
+}
+
 function validarFormulario(){
     limpiarErrores();
 
     let esValido = true;
 
     let ingresos = document.getElementById("txtIngresos").value.trim();
-    let egresos = document.getElementById("txtEgresos").value.trim();
+    let arriendo = document.getElementById("txtArriendo").value.trim();
+    let alimentacion = document.getElementById("txtAlimentacion").value.trim();
+    let varios = document.getElementById("txtVarios").value.trim();
     let monto = document.getElementById("txtMonto").value.trim();
     let plazo = document.getElementById("txtPlazo").value.trim();
     let tasa = document.getElementById("txtTasaInteres").value.trim();
 
-    if(ingresos == ""){
-        mostrarError("txtIngresos","errorIngresos","El campo ingresos es obligatorio");
-        esValido = false;
-    }else if(isNaN(ingresos)){
-        mostrarError("txtIngresos","errorIngresos","Ingresos debe ser numérico");
-        esValido = false;
-    }else if(parseFloat(ingresos) < 0){
-        mostrarError("txtIngresos","errorIngresos","Ingresos no puede ser negativo");
-        esValido = false;
-    }else if(parseFloat(ingresos) > 100000){
-        mostrarError("txtIngresos","errorIngresos","Ingresos no puede ser mayor a 100000");
+    if(!validarCampoNumero(ingresos, "txtIngresos", "errorIngresos", "ingresos")){
         esValido = false;
     }
-
-    if(egresos == ""){
-        mostrarError("txtEgresos","errorEgresos","El campo egresos es obligatorio");
+    if(!validarCampoNumero(arriendo, "txtArriendo", "errorArriendo", "arriendo")){
         esValido = false;
-    }else if(isNaN(egresos)){
-        mostrarError("txtEgresos","errorEgresos","Egresos debe ser numérico");
+    }
+    if(!validarCampoNumero(alimentacion, "txtAlimentacion", "errorAlimentacion", "alimentación")){
         esValido = false;
-    }else if(parseFloat(egresos) < 0){
-        mostrarError("txtEgresos","errorEgresos","Egresos no puede ser negativo");
-        esValido = false;
-    }else if(parseFloat(egresos) > 100000){
-        mostrarError("txtEgresos","errorEgresos","Egresos no puede ser mayor a 100000");
+    }
+    if(!validarCampoNumero(varios, "txtVarios", "errorVarios", "varios")){
         esValido = false;
     }
 
@@ -90,17 +101,19 @@ function validarFormulario(){
     }else if(isNaN(tasa)){
         mostrarError("txtTasaInteres","errorTasa","La tasa debe ser numérica");
         esValido = false;
-    }else if(parseInt(tasa) <= 0){
+    }else if(parseFloat(tasa) <= 0){
         mostrarError("txtTasaInteres","errorTasa","La tasa debe ser mayor a 0");
         esValido = false;
-    }else if(parseInt(tasa) > 100){
+    }else if(parseFloat(tasa) > 100){
         mostrarError("txtTasaInteres","errorTasa","La tasa no puede ser mayor a 100");
         esValido = false;
     }
 
-    if(!isNaN(ingresos) && !isNaN(egresos)){
-        if(parseFloat(egresos) > parseFloat(ingresos)){
-            mostrarError("txtEgresos","errorEgresos","Egresos no puede ser mayor que ingresos");
+    if(!isNaN(ingresos) && !isNaN(arriendo) && !isNaN(alimentacion) && !isNaN(varios)){
+        let totalGastos = parseFloat(arriendo) + parseFloat(alimentacion) + parseFloat(varios);
+
+        if(totalGastos > parseFloat(ingresos)){
+            mostrarError("txtVarios","errorVarios","La suma de gastos no puede ser mayor que ingresos");
             esValido = false;
         }
     }
@@ -112,6 +125,7 @@ function calcular(){
     let valido = validarFormulario();
 
     if(valido == false){
+        document.getElementById("spnTotalGastos").textContent = "";
         document.getElementById("spnDisponible").textContent = "";
         document.getElementById("spnCapacidadPago").textContent = "";
         document.getElementById("spnInteresPagar").textContent = "";
@@ -122,9 +136,14 @@ function calcular(){
     }
 
     let ingresos = parseFloat(document.getElementById("txtIngresos").value);
-    let egresos = parseFloat(document.getElementById("txtEgresos").value);
+    let arriendo = parseFloat(document.getElementById("txtArriendo").value);
+    let alimentacion = parseFloat(document.getElementById("txtAlimentacion").value);
+    let varios = parseFloat(document.getElementById("txtVarios").value);
 
-    let disponible = calcularDisponible(ingresos, egresos);
+    let totalGastos = arriendo + alimentacion + varios;
+    document.getElementById("spnTotalGastos").textContent = totalGastos.toFixed(2);
+
+    let disponible = calcularDisponible(ingresos, totalGastos);
     document.getElementById("spnDisponible").textContent = disponible.toFixed(2);
 
     let capacidad = calcularCapacidadPago(disponible);
@@ -132,7 +151,7 @@ function calcular(){
 
     let monto = parseInt(document.getElementById("txtMonto").value);
     let plazoAnios = parseInt(document.getElementById("txtPlazo").value);
-    let tasa = parseInt(document.getElementById("txtTasaInteres").value);
+    let tasa = parseFloat(document.getElementById("txtTasaInteres").value);
 
     let interes = calcularInteresSimple(monto, tasa, plazoAnios);
     document.getElementById("spnInteresPagar").textContent = interes.toFixed(2);
@@ -154,11 +173,14 @@ function calcular(){
 
 function reiniciar(){
     document.getElementById("txtIngresos").value = "";
-    document.getElementById("txtEgresos").value = "";
+    document.getElementById("txtArriendo").value = "";
+    document.getElementById("txtAlimentacion").value = "";
+    document.getElementById("txtVarios").value = "";
     document.getElementById("txtMonto").value = "";
     document.getElementById("txtPlazo").value = "";
     document.getElementById("txtTasaInteres").value = "";
 
+    document.getElementById("spnTotalGastos").textContent = "";
     document.getElementById("spnDisponible").textContent = "";
     document.getElementById("spnCapacidadPago").textContent = "";
     document.getElementById("spnInteresPagar").textContent = "";
